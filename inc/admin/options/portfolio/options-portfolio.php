@@ -70,14 +70,6 @@ Flatsome_Option::add_field( 'option',  array(
 	),
 ));
 
-Flatsome_Option::add_field( 'option', array(
-	'type'     => 'checkbox',
-	'settings' => 'portfolio_share',
-	'label'    => __( 'Show share icons', 'flatsome' ),
-	'section'  => 'fl-portfolio',
-	'default'  => 1,
-) );
-
 Flatsome_Option::add_field( 'option',  array(
   'type'        => 'checkbox',
   'settings'     => 'portfolio_related',
@@ -127,10 +119,10 @@ Flatsome_Option::add_field( 'option',  array(
   'choices'     => array(
      0   => 'Auto',
     '50%' => '1:2 (Wide)',
-    '75%' => '4:3 (Rectangular)',
+    '75%' => '4:3 (Retangular)',
     '56%' => '16:9 (Widescreen)',
     '100%' => '1:1 (Square)',
-    '125%' => 'Portrait',
+    '125%' => 'Potrait',
     '100%' => '2:1 (Tall)',
   ),
 ));
@@ -172,9 +164,9 @@ Flatsome_Option::add_field( 'option',  array(
 	'settings'     => 'portfolio_archive_filter',
 	'label'       => __( 'Filter Navigation', 'flatsome-admin' ),
 	'section'     => 'fl-portfolio',
-	'default'     => 'left',
+	'default'     => '',
 	'choices'     => array(
-		'left' => 'Left',
+		''		=> 'Left',
 		'center' => 'Center',
 		'disabled' => 'Disabled'
 	),

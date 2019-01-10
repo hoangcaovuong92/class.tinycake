@@ -106,13 +106,12 @@
 
 #of_container #content .section-checkbox .option > div{
 	display: table-cell;
-	padding-right: 5px;
+	padding-right: 15px;
 	vertical-align: top;
 }
 
-#of_container #content input[type=checkbox] {
-	width: 17px;
-	min-width: 17px;
+#of_container #content .section-checkbox .option > .controls{
+	width:20px;
 }
 
 
@@ -288,7 +287,7 @@ html[data-iframe] #of_container .of-save-popup div{padding-top: 15px;}
 }
 
 #of_container .ajax-loading-img-bottom {
-	margin: 0 5px;
+	margin: 5px 4px 0;
 }
 
 #of_container .ajax-reset-loading-img {
@@ -336,10 +335,7 @@ border-radius: 3px;
 	line-height: 1.2;
 }
 
-/* Option folding */
-#of_container .temphide {
-	display: none;
-}
+
 
 /*-------------------------------------------------------------------------------------------*/
 /* Tipsy

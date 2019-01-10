@@ -30,14 +30,13 @@ Flatsome_Option::add_field( 'option',  array(
 ));
 
 
-Flatsome_Option::add_field( 'option', array(
-	'type'      => 'checkbox',
-	'settings'  => 'dropdown_arrow',
-	'label'     => __( 'Display arrow on dropdown pane', 'flatsome-admin' ),
-	'transport' => $transport,
-	'section'   => 'header_dropdown',
-	'default'   => 1,
-) );
+Flatsome_Option::add_field( 'option',  array(
+	'type'        => 'checkbox',
+	'settings'     => 'dropdown_arrow',
+	'label'       => __( 'Display dropdown arrow', 'flatsome-admin' ),
+    'section'     => 'header_dropdown',
+	'default'     => 1,
+));
 
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'slider',

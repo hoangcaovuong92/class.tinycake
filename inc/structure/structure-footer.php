@@ -50,37 +50,32 @@ function flatsome_footer_row_style($footer){
 }
 
 function flatsome_page_footer(){
-	$block = get_theme_mod( 'footer_block' );
+	global $page;
 
-	if ( is_page() ) {
-		// Custom Page footers.
-		$page_footer = get_post_meta( get_the_ID(), '_footer', true );
-		$default     = empty( $page_footer ) || $page_footer == 'normal';
+	$block = get_theme_mod('footer_block');
 
-		if ( $page_footer !== 'disabled' ) {
-			if ( ! $block ) {
-				if ( $default ) {
-					get_template_part( 'template-parts/footer/footer' );
-				} elseif ( ! empty( $page_footer ) ) {
-					get_template_part( 'template-parts/footer/footer', $page_footer );
-				}
-			} else {
-				echo do_shortcode( '[block id="' . $block . '"]' );
-				get_template_part( 'template-parts/footer/footer-absolute' );
-			}
+	if(is_page() && !$block) {
+		// Custom Page footers
+		$page_footer =  get_post_meta( get_the_ID(), '_footer', true );
+
+		if(empty($page_footer) || $page_footer == 'normal'){
+			echo get_template_part('template-parts/footer/footer');
+		} else if(!empty($page_footer) && $page_footer !== 'disabled'){
+			echo get_template_part('template-parts/footer/footer', $page_footer);
 		}
+
 	} else {
-		// Global footer.
-		if ( $block ) {
-			echo do_shortcode( '[block id="' . $block . '"]' );
-			get_template_part( 'template-parts/footer/footer-absolute' );
+		// Global footer
+		if($block){
+			echo do_shortcode('[block id="'.$block.'"]');
+			echo get_template_part('template-parts/footer/footer-absolute');
 		} else {
-			get_template_part( 'template-parts/footer/footer' );
+			echo get_template_part('template-parts/footer/footer');
 		}
 	}
 }
 
-add_filter( 'flatsome_footer', 'flatsome_page_footer', 10 );
+add_filter('flatsome_footer','flatsome_page_footer', 10);
 
 
 // Add Top Link
@@ -96,15 +91,6 @@ function flatsome_footer_scripts(){
     echo do_shortcode(get_theme_mod('html_scripts_footer'));
 }
 add_action('wp_footer', 'flatsome_footer_scripts');
-
-/* Insert custom body bottom script */
-function flatsome_before_body_close() {
-	if ( get_theme_mod( 'html_scripts_before_body' ) && ! is_admin() ) {
-		echo get_theme_mod( 'html_scripts_before_body' ); // WPCS: XSS ok.
-	}
-}
-
-add_action( 'wp_footer', 'flatsome_before_body_close', apply_filters( 'flatsome_before_body_close_priority', 9999 ) );
 
 
 // Custom HTML Before footer

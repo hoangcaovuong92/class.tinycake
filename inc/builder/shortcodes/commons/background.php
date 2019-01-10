@@ -16,7 +16,7 @@ return array(
           'default' => 'large',
           'conditions' => 'bg',
           'options' => array(
-            'original' => 'Original',
+            'orginal' => 'Orginal',
             'large' => 'Large',
             'medium' => 'Medium',
             'thumbnail' => 'Thumbnail',

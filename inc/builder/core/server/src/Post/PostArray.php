@@ -20,11 +20,6 @@ class PostArray {
   public function create_array() {
     $self = $this;
     $post_content = $this->post->post_content;
-
-    // Remove HTML block wrappers in UX Builder.
-    // They will be added by ArrayToString.php when saved.
-    $post_content = preg_replace( '/<!-- \/?wp:html -->/', '', $post_content );
-
     $this->post_array = ux_builder( 'to-array' )->transform( "[_root]{$post_content}[/_root]" );
 
     ux_builder_content_array_walk( $this->post_array, function ( &$item ) use ( $self ) {

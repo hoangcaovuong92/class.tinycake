@@ -60,16 +60,7 @@ $options = array(
                 'featured' => 'Featured',
                 'onsale' => 'On Sale',
             )
-        ),
-         'out_of_stock' => array(
-	         'type'    => 'select',
-	         'heading' => __( 'Out Of Stock' ),
-	         'default' => '',
-	         'options' => array(
-		         ''        => 'Include',
-		         'exclude' => 'Exclude',
-	         ),
-         ),
+        )
     )
 )
 );

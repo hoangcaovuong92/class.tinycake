@@ -18,7 +18,10 @@ if ( 'off-canvas' === $layout ) {
 }
 
 $custom_filter_text = get_theme_mod( 'category_filter_text' );
-$filter_text = $custom_filter_text ? $custom_filter_text : __( 'Filter', 'woocommerce' );
+$filter_text = __( 'Filter', 'woocommerce' );
+if ( $custom_filter_text ) {
+	$filter_text = $custom_filter_text;
+}
 ?>
 <div class="category-filtering category-filter-row <?php echo $class ?>">
 	<a href="#" data-open="#shop-sidebar" <?php echo $after ?> data-pos="left" class="filter-button uppercase plain">

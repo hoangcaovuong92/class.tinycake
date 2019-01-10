@@ -18,6 +18,19 @@ if(!function_exists('flatsome_dummy_image')) {
   }
 }
 
+/* Check if WooCommerce is Active */
+if ( ! function_exists( 'is_woocommerce_activated' ) ) {
+	function is_woocommerce_activated() {
+		return class_exists( 'woocommerce' ) ? true : false;
+	}
+}
+
+if ( ! function_exists( 'is_portfolio_activated' ) ) {
+  function is_portfolio_activated() {
+    return get_theme_mod('fl_portfolio', 1) ? true : false;
+  }
+}
+
 /* Check WooCommerce Version */
 if( ! function_exists('fl_woocommerce_version_check') ){
 	function fl_woocommerce_version_check( $version = '2.6' ) {
@@ -26,6 +39,13 @@ if( ! function_exists('fl_woocommerce_version_check') ){
       return true;
     }
 	  return false;
+	}
+}
+
+/* Check if Extensions Exists */
+if ( ! function_exists( 'is_extension_activated' ) ) {
+	function is_extension_activated( $extension ) {
+		return class_exists( $extension ) ? true : false;
 	}
 }
 

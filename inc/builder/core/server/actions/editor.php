@@ -122,7 +122,6 @@ add_action( 'admin_print_footer_scripts', function () {
   $post_status = $editing_post->post()->post_status;
   $can_edit = current_user_can( 'edit_post', $post_id );
   $can_publish = current_user_can( 'publish_post', $post_id );
-  $has_flatsome_studio = get_theme_mod( 'flatsome_studio', 1 );
 
   // Get the back URL. Redirect to admin page if user came
   // from admin or to the post if user came from some other place.
@@ -151,9 +150,6 @@ add_action( 'admin_print_footer_scripts', function () {
     'initialized' => false,
     'nonce' => wp_create_nonce( 'ux-builder-' . $editing_post->post()->ID ),
     'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-    'flatsomeStudioUrl' => $has_flatsome_studio
-      ? ( is_ssl() ? 'https' : 'http' ) . '://demos.uxthemes.com/'
-      : null,
     'iframeUrl' => ux_builder_iframe_url(),
     'backUrl' => $back_url,
     'editUrl' => $current_post->editlink(),
@@ -161,7 +157,6 @@ add_action( 'admin_print_footer_scripts', function () {
     'post' => $editing_post->to_array(),
     'saveButton' => $save_button,
     'showSidebar' => true,
-    'showFlatsomeStudio' => false,
     'breakpoints' => array(
       'current' => get_default_ux_builder_breakpoint(),
       'default' => get_default_ux_builder_breakpoint(),
@@ -196,7 +191,7 @@ add_action( 'admin_print_footer_scripts', function () {
   } );
 
   echo '<script id="ux-builder-data" type="text/javascript">';
-  echo 'var uxBuilderData = ' . wp_json_encode( $data ) . ';';
+  echo 'var uxBuilderData = ' . json_encode( $data ) . ';';
   echo '</script>';
 }, -$priority );
 

@@ -143,7 +143,7 @@ add_ux_builder_shortcode( 'map', array(
         'color' => array(
           'type' => 'colorpicker',
           'heading' => 'Color',
-          'default' => '',
+          'default' => '#58728a',
           'format' => 'hex',
           'position' => 'bottom right',
         ),

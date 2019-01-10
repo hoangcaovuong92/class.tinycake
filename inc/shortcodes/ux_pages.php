@@ -5,16 +5,12 @@ function ux_pages($atts) {
       // meta
       '_id' => 'pages-'.rand(),
       'parent' => '',
-      'orderby' => 'menu_order',
-      'order' => 'asc',
       'ids' => false,
       'target' => '',
 
       // Layout
       'style' => '',
       'columns' => '4',
-      'columns__md' => '',
-      'columns__sm' => '',
       'col_spacing' => '',
       'type' => 'row', // slider, row, masonery, grid
       'width' => '',
@@ -60,9 +56,9 @@ function ux_pages($atts) {
       if ( !empty( $ids ) ) {
         $ids = explode( ',', $ids );
         $ids = array_map( 'trim', $ids );
-        $childpages = get_pages( array( 'include' => $ids, 'sort_column' => $orderby , 'sort_order' => $order ) );
+        $childpages = get_pages( array( 'include' => $ids, 'sort_column' => 'menu_order' ) );
       } else if ( is_page() && $post->post_parent && !$parent ){
-          $childpages = get_pages( array( 'child_of' => $post->post_parent, 'sort_column' => $orderby, 'sort_order' => $order ) );
+          $childpages = get_pages( array( 'child_of' => $post->post_parent, 'sort_column' => 'menu_order' ) );
       } else {
           $post_id = $post->ID;
           if($parent) {
@@ -72,7 +68,7 @@ function ux_pages($atts) {
             }
             $post_id = $parent;
           }
-          $childpages = get_pages( array( 'child_of' => $post_id, 'sort_column' => $orderby, 'sort_order' => $order ) );
+          $childpages = get_pages( array( 'child_of' => $post_id, 'sort_column' => 'menu_order' ) );
           if(!$childpages) echo '<p class="lead shortcode-error text-center">Sorry, no pages was found</p>';
       }
 
@@ -143,8 +139,6 @@ function ux_pages($atts) {
       $repater['row_spacing'] = $col_spacing;
       $repater['row_width'] = $width;
       $repater['columns'] = $columns;
-      $repater['columns__md'] = $columns__md;
-      $repater['columns__sm'] = $columns__sm;
       $repater['depth'] = $depth;
       $repater['depth_hover'] = $depth_hover;
 

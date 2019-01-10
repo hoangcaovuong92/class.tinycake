@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 
 Flatsome_Option::add_section( 'global-styles', array(
 	'title'       => __( 'Global Styles', 'flatsome-admin' ),

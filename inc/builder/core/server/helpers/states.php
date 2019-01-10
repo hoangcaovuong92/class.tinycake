@@ -82,29 +82,3 @@ function ux_builder_is_saving() {
   return array_key_exists( 'action', $_POST ) &&
     $_POST['action'] == 'ux_builder_save';
 }
-
-/**
- * Check whether post content most likely was created in UX Builder.
- *
- * @param   WP_Post $post
- * @return  boolean
- */
-function ux_builder_is_builder_post( $post ) {
-  $post_types = get_ux_builder_post_types();
-  $regex = get_shortcode_regex();
-
-  // Post type is not activated for UX Builder
-  if ( ! array_key_exists( $post->post_type, $post_types ) ) {
-    return false;
-  }
-
-  // Post content already contains Gutenberg blocks
-  if ( function_exists( 'has_blocks' ) && has_blocks( $post->post_content ) ) {
-    return false;
-  }
-
-  // Check if content has any shortcodes.
-  preg_match_all( '/' . $regex . '/', $post->post_content, $matches, PREG_SET_ORDER );
-
-  return ! empty( $matches );
-}

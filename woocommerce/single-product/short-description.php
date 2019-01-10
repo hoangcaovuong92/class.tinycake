@@ -2,24 +2,23 @@
 /**
  * Single product short description
  *
- * @author  Automattic
- * @package WooCommerce/Templates
- * @version 3.3.0
+ * @author 		WooThemes
+ * @package 	WooCommerce/Templates
+ * @version     1.6.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit; // Exit if accessed directly
 }
 
 global $post;
 
-$short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt );
-
-if ( ! $short_description ) {
+if ( ! $post->post_excerpt ) {
 	return;
 }
 
 ?>
 <div class="product-short-description">
-	<?php echo $short_description; // WPCS: XSS ok. ?>
+	<?php echo apply_filters( 'woocommerce_short_description', $post->post_excerpt ) ?>
+	
 </div>

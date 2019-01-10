@@ -6,7 +6,6 @@ function shortcode_ux_slider($atts, $content=null) {
         'timer' => '6000',
         'bullets' => 'true',
         'visibility' => '',
-        'type' => 'slide',
         'bullet_style' => '',
         'auto_slide' => 'true',
         'auto_height' => 'true',
@@ -31,7 +30,7 @@ function shortcode_ux_slider($atts, $content=null) {
         'draggable' => 'true',
         'friction' => '0.6',
         'selectedattraction' => '0.1',
-        'threshold' => '10',
+        'threshold' => '5',
 
         // Derpicated
         'mobile' => 'true',
@@ -45,13 +44,8 @@ function shortcode_ux_slider($atts, $content=null) {
 
     $classes = array('slider');
 
-    if ($type == 'fade') $classes[] = 'slider-type-'.$type;
-
     // Hide if mobile is set to false
     if($mobile !==  'true' && !$visibility) {$visibility = 'hide-for-small';}
-
-    // Bullet style
-    if($bullet_style) $classes[] = 'slider-nav-dots-'.$bullet_style;
 
     // Nav style
     if($nav_style) $classes[] = 'slider-nav-'.$nav_style;

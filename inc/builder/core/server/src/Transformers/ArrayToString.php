@@ -6,8 +6,6 @@ use UxBuilder\Options\Options;
 use UxBuilder\Collections\Elements;
 
 class ArrayToString extends Transformer {
-  protected $in_block = false;
-  protected $use_blocks = false;
 
   /**
    * @var array
@@ -19,9 +17,8 @@ class ArrayToString extends Transformer {
    */
   protected $elements;
 
-  public function __construct( Elements $elements, $use_blocks = false ) {
+  public function __construct( Elements $elements ) {
     $this->elements = $elements;
-    $this->use_blocks = $use_blocks;
     $this->nested = array();
   }
 
@@ -37,13 +34,6 @@ class ArrayToString extends Transformer {
 
     foreach ( $array as $item ) {
       $shortcode = $this->elements->get( $item['tag'] );
-
-      if ( $item['tag'] !== 'ux_gutenberg' && ! $this->in_block ) {
-        $string .= $this->start_html_block( $container === null );
-      } else if ( $item['tag'] === 'ux_gutenberg' && $this->in_block ) {
-        $string .= $this->end_html_block( $container === null );
-      }
-
       $nested = $this->increase_nested( $item['tag'] );
       $tag = $this->generate_tag( $item, $nested );
       $options = $this->options_to_string( $item, $shortcode );
@@ -58,31 +48,7 @@ class ArrayToString extends Transformer {
       $this->decrease_nested( $item['tag'] );
     }
 
-    if ( $this->in_block ) {
-      $string .= $this->end_html_block( $container === null );
-    }
-
     return $string;
-  }
-
-  protected function start_html_block( $is_root ) {
-    if (! $is_root) return '';
-
-    $this->in_block = true;
-
-    return $this->use_blocks
-      ? "\n<!-- wp:html -->\n"
-      : '';
-  }
-
-  protected function end_html_block( $is_root ) {
-    if (! $is_root) return '';
-
-    $this->in_block = false;
-
-    return $this->use_blocks
-      ? "\n<!-- /wp:html -->\n"
-      : '';
   }
 
   /**

@@ -18,10 +18,10 @@ function flatsome_contact_form_presets($args){
     [text* your-name]
 
     <label>Your Email (required)</label>
-    [email* your-email]
+    [email* your-email] </p>
 
     <label>Your Message (required)</label>
-    [textarea your-message]
+    [textarea your-message] </p>
 
     [submit class:button primary "Submit"]
 

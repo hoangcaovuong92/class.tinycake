@@ -7,7 +7,7 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
 		'lat'  => '40.79028',
     'long' => '-73.95972',
     'height' => '400px',
-		'color' => '',
+		'color' => '#58728a',
     'margin' => '',
     'position_x' => '95',
     'position_x__sm' => '',
@@ -110,11 +110,6 @@ function flatsome_shortcode_map($atts, $content=null, $code) {
             map: map,
             title:""
         });
-    }
-
-    /* Required to proceed */
-    if (typeof google === 'undefined') {
-      return
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);

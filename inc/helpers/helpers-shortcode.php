@@ -95,7 +95,6 @@ function get_flatsome_repeater_start( $atts ) {
           $row_classes[] = 'row-box-shadow-'.$atts['depth'];
     }
     if(!empty($atts['depth_hover'])){
-       $row_classes[] = 'has-shadow';
           $row_classes_full[] = 'box-shadow-'.$atts['depth_hover'].'-hover';
           $row_classes[] = 'row-box-shadow-'.$atts['depth_hover'].'-hover';
     }
@@ -134,11 +133,8 @@ function get_flatsome_repeater_start( $atts ) {
       $slider_options = '{"imagesLoaded": true, "dragThreshold" : 5, "cellAlign": "left","wrapAround": true,"prevNextButtons": true,"percentPosition": true,"pageDots": '.$atts['slider_bullets'].', "rightToLeft": '.$rtl.', "autoPlay" : '.$atts['auto_slide'].'}';
     }
 
-	$row_classes_full = array_unique( $row_classes_full );
-	$row_classes      = array_unique( $row_classes );
-
-	$row_classes_full = implode( ' ', $row_classes_full );
-	$row_classes      = implode( ' ', $row_classes );
+    $row_classes_full = implode(' ', $row_classes_full);
+    $row_classes = implode(' ', $row_classes);
   ?>
 
   <?php if($atts['title']){?>
@@ -176,19 +172,15 @@ function get_flatsome_repeater_end($type){
 /* Fix Normal Shortcodes */
 function flatsome_contentfix($content){
     $fix = array (
-            '<p>_____</p>' => '<div class="is-divider large"></div>',
-            '<p>____</p>' => '<div class="is-divider medium"></div>',
-            '<p>___</p>' => '<div class="is-divider small"></div>',
+            '_____' => '<div class="is-divider large"></div>',
+            '____' => '<div class="is-divider medium"></div>',
+            '___' => '<div class="is-divider small"></div>',
             '</div></p>' => '</div>',
             '<p><div' => '<div',
             ']</p>' => ']',
             ']<br />' => ']',
             '<p>[' => '[',
             '<br />[' => '[',
-
-            // For Gutenberg blocks that is encoded by UX Builder.
-            '&lt;!&#8211;' => '<!--',
-            '&#8211;&gt;' => '-->',
     );
     //$content = wpautop( preg_replace( '/<\/?p\>/', "\n", $content ) . "\n" );
     $content = strtr($content, $fix);
@@ -366,10 +358,12 @@ function flatsome_smart_links($link){
       $link = get_permalink( wc_get_page_id( 'shop' ) );
     }
     else if($link == 'cart' && is_woocommerce_activated()) {
-      $link = wc_get_cart_url();
+      global $woocommerce;
+      $link = $woocommerce->cart->get_cart_url();
     }
     else if($link == 'checkout' && is_woocommerce_activated()) {
-      $link = wc_get_checkout_url();
+      global $woocommerce;
+      $link = $woocommerce->cart->get_checkout_url();
     }
     else if($link == 'account' && is_woocommerce_activated()){
       $link = get_permalink( get_option('woocommerce_myaccount_page_id') );
@@ -392,10 +386,7 @@ function flatsome_smart_links($link){
       if( $get_page ) $link = get_permalink($get_page->ID);
     }
 
-	$protocols = wp_allowed_protocols();
-	array_push( $protocols, 'sms' );
-
-    return esc_url( $link, $protocols );
+    return esc_url($link);
 }
 
 function flatsome_to_dashed($className) {
@@ -414,34 +405,3 @@ function flatsome_get_gradient($primary){ ?>
   </style>
   <?php
 } */
-
-/**
- * Parse rel attribute values based on target value.
- * Adds 'noopener noreferrer' to rel when target is _blank.
- *
- * @param array $link_atts Link attributes 'target' and 'rel'.
- * @param bool  $trim      Trim start and end whitespaces?
- *
- * @return null|string Parsed target/rel string or null when no target defined.
- */
-function flatsome_parse_target_rel( array $link_atts, $trim = false ) {
-	if ( ! $link_atts['target'] ) {
-		return null;
-	}
-	if ( $link_atts['target'] == '_blank' ) {
-		$link_atts['rel'][] = 'noopener';
-		$link_atts['rel'][] = 'noreferrer';
-	}
-
-	if ( isset( $link_atts['rel'] ) && is_array( $link_atts['rel'] ) && ! empty( array_filter( $link_atts['rel'] ) ) ) {
-		$relations = array_unique( array_filter( $link_atts['rel'] ) );
-		$rel       = implode( ' ', $relations );
-		$atts      = " target=\"{$link_atts['target']}\" rel=\"{$rel}\" ";
-
-		return $trim ? trim( $atts ) : $atts;
-	}
-
-	$atts = " target=\"{$link_atts['target']}\" ";
-
-	return $trim ? trim( $atts ) : $atts;
-}

@@ -3,8 +3,8 @@
 <div id="content" role="main" class="page-wrapper">
 	<?php
 		$cat = false;
-		$filter = get_theme_mod( 'portfolio_archive_filter', 'left' );
-		$filter_nav = get_theme_mod( 'portfolio_archive_filter_style', 'line-grow' );
+		$filter = flatsome_option('portfolio_archive_filter');
+		$filter_nav = flatsome_option('portfolio_archive_filter_style');
 
 		if($filter == 'disabled' || is_tax()){
 			$filter = 'disabled';

@@ -107,10 +107,6 @@ class StringToArray extends Transformer {
    * @return string
    */
   private function generate_text_shortcode( $content ) {
-    if ( function_exists( 'has_blocks' ) && has_blocks( $content ) ) {
-      return '[ux_gutenberg]' . $content . '[/ux_gutenberg]';
-    }
-
     return '[text]' . wpautop( $content ) . '[/text]';
   }
 

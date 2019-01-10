@@ -22,7 +22,6 @@ class Posts {
       'orderby' => 'post__in',
       'ignore_sticky_posts' => true,
       'post_type' => isset( $option['post_type'] ) ? $option['post_type'] : null,
-      'suppress_filters' => false
     ) );
 
     $items = array_map( function ( $post ) {
@@ -48,7 +47,6 @@ class Posts {
       'numberposts' => 25,
       'ignore_sticky_posts' => true,
       'post_type' => isset( $option['post_type'] ) ? $option['post_type'] : null,
-      'suppress_filters' => false
       ) );
 
       // Get relative url's for all found posts.

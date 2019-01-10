@@ -4,8 +4,8 @@
 
 // Product Headers
 function flatsome_product_header(){
-    if(is_product() && get_theme_mod('product_header') && get_theme_mod('product_layout') !== 'custom'){
-       return wc_get_template_part('single-product/headers/header-product', get_theme_mod('product_header'));
+    if(is_product() && flatsome_option('product_header')){
+       return wc_get_template_part('single-product/headers/header-product', flatsome_option('product_header'));
     }
 }
 add_action('flatsome_after_header','flatsome_product_header', 10);
@@ -30,7 +30,7 @@ add_filter('flatsome_header_class','flatsome_product_header_classes', 10);
 // Add Breadcrunmbs To Description if no custom page header is set
 function flatsome_woocommerce_product_breadcrumb() {
   if(!get_theme_mod('product_header')){
-  	 flatsome_breadcrumb();
+    woocommerce_breadcrumb();
   }
 }
 add_action( 'woocommerce_single_product_summary', 'flatsome_woocommerce_product_breadcrumb',  0 );
@@ -47,7 +47,7 @@ add_action('flatsome_product_title','flatsome_product_page_breadcrumbs',20);
 function flatsome_product_page_title(){
   if(get_theme_mod('product_header') !== 'featured-center') return;
 
-  echo '<h1 class="product-title product_title entry-title">'.get_the_title().'</h1>';
+  echo '<h1 class="product-title entry-title">'.get_the_title().'</h1>';
 
   remove_action('woocommerce_single_product_summary','woocommerce_template_single_title', 5);
 }

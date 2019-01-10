@@ -30,6 +30,11 @@ $type = get_theme_mod('related_products', 'slider');
 if($type == 'hidden') return;
 if($type == 'grid') $type = 'row';
 
+// Disable slider if less than selected products pr row.
+if ( sizeof( $related_products ) < (get_theme_mod('related_products_pr_row', 4)+1) ) {
+  $type = 'row';
+}
+
 $repater['type'] = $type;
 $repater['columns'] = get_theme_mod('related_products_pr_row', 4);
 $repater['slider_style'] = 'reveal';
@@ -39,8 +44,7 @@ $repater['row_spacing'] = 'small';
 if ( $related_products ) : ?>
 
   <div class="related related-products-wrapper product-section">
-
-    <h3 class="product-section-title container-width product-section-title-related pt-half pb-half uppercase">
+    <h3 class="product-section-title product-section-title-related pt-half pb-half uppercase">
       <?php esc_html_e( 'Related products', 'woocommerce' ); ?>
     </h3>
 
