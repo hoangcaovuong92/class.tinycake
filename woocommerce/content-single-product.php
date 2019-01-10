@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	 // Get product page layout
 	 wc_get_template_part( 'single-product/layouts/product', flatsome_option('product_layout'));
-	 get_variation_price_by_id_new_only($product->id);
+
 	 do_action( 'woocommerce_after_single_product' );
 
 ?>

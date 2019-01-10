@@ -62,7 +62,7 @@ if($out_of_stock) $classes[] = 'out-of-stock';
 			<?php if($out_of_stock) { ?><div class="out-of-stock-label"><?php _e( 'Out of stock', 'woocommerce' ); ?></div><?php }?>
 		</div><!-- box-image -->
 
-		<div class="box-text <?php //echo flatsome_product_box_text_class(); ?>">
+		<div class="box-text <?php echo flatsome_product_box_text_class(); ?>">
 			<?php
 				do_action( 'woocommerce_before_shop_loop_item_title' );
 
@@ -72,16 +72,14 @@ if($out_of_stock) $classes[] = 'out-of-stock';
 
 
 				echo '<div class="price-wrapper">';
-				get_variation_price_by_id_new_only($product->id);
 				do_action( 'woocommerce_after_shop_loop_item_title' );
 				echo '</div>';
-				
 
-				//do_action( 'flatsome_product_box_after' );
+				do_action( 'flatsome_product_box_after' );
 
 			?>
 		</div><!-- box-text -->
 	</div><!-- box -->
-	<?php //do_action( 'woocommerce_after_shop_loop_item' ); ?>
+	<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
 	</div><!-- .col-inner -->
 </div><!-- col -->

@@ -118,6 +118,5 @@ if(get_theme_mod('product_lightbox','default') == 'disabled'){
   </div>
 </div>
 <?php do_action('flatsome_after_product_images'); ?>
-	
-<?php wc_get_template( 'woocommerce/single-product/product-gallery-thumbnails.php' ); ?>
 
+<?php wc_get_template( 'woocommerce/single-product/product-gallery-thumbnails.php' ); ?>

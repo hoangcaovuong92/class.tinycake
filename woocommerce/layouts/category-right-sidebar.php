@@ -50,7 +50,7 @@
 		<?php endif; ?>
 
 		<?php
-			do_action('flatsome_products_after');
+			 do_action('flatsome_products_after');
 			/**
 			 * woocommerce_after_main_content hook
 			 *
@@ -59,8 +59,7 @@
 			do_action( 'woocommerce_after_main_content' );
 		?>
 
-		</div>
-		<!-- col-fit  -->
+		</div><!-- col-fit  -->
 
 		<div class="large-3 col hide-for-medium <?php flatsome_sidebar_classes(); ?>">
 			<div id="shop-sidebar" class="sidebar-inner">

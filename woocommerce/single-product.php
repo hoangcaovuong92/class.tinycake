@@ -34,11 +34,6 @@ do_action('flatsome_before_product_page');
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
-		<?php
-		echo "<div class='container'><h3>SẢN PHẨM VỪA XEM</h3></div>";
-		
-		echo do_shortcode('[woocommerce_recently_viewed_products]');
-		?>
 
 	<?php
 		/**
@@ -47,13 +42,11 @@ do_action('flatsome_before_product_page');
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
 		do_action( 'woocommerce_after_main_content' );
-
 	?>
 
 <?php
 
 do_action('flatsome_after_product_page');
-
 
 get_footer( 'shop' );
 

@@ -44,6 +44,7 @@ $repater['row_spacing'] = 'small';
 if ( $related_products ) : ?>
 
   <div class="related related-products-wrapper product-section">
+
     <h3 class="product-section-title product-section-title-related pt-half pb-half uppercase">
       <?php esc_html_e( 'Related products', 'woocommerce' ); ?>
     </h3>

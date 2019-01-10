@@ -193,10 +193,10 @@ function flatsome_pages_in_search_results(){
       wp_reset_query();
 
       if(!empty($posts) || !empty($pages)){
-        // echo '<hr/>';
-        // echo '<h4 class="uppercase">'.__('Pages and posts found','flatsome').'</h4>';
-        // if(!empty($posts)) echo do_shortcode('[blog_posts columns="3" image_height="16-9" ids="'.implode(',',$posts).'"]');
-        // if(!empty($pages)) echo do_shortcode('[ux_pages columns="3" image_height="16-9" ids="'.implode(',',$pages).'"]');
+        echo '<hr/>';
+        echo '<h4 class="uppercase">'.__('Pages and posts found','flatsome').'</h4>';
+        if(!empty($posts)) echo do_shortcode('[blog_posts columns="3" image_height="16-9" ids="'.implode(',',$posts).'"]');
+        if(!empty($pages)) echo do_shortcode('[ux_pages columns="3" image_height="16-9" ids="'.implode(',',$pages).'"]');
       }
 
     ?>
@@ -204,7 +204,7 @@ function flatsome_pages_in_search_results(){
 
     <?php
 }
-// add_action('woocommerce_after_main_content','flatsome_pages_in_search_results', 10);
+add_action('woocommerce_after_main_content','flatsome_pages_in_search_results', 10);
 
 
 
