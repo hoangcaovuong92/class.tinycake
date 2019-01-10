@@ -6,9 +6,11 @@
 					<?php echo get_the_term_list( get_the_ID(), 'featured_item_category', '', '<span class="divider">|</span>', '' ); ?> 
 				</div>
 				<h1 class="entry-title is-xlarge uppercase"><?php the_title(); ?></h1>
+			<?php if ( get_theme_mod( 'portfolio_share', 1 ) ) : ?>
 				<div class="portfolio-share is-small">
-					<?php echo do_shortcode('[share style="small"]')?>
+					<?php echo do_shortcode( '[share style="small"]' ) ?>
 				</div>
+			<?php endif; ?>
 		</div><!-- .large-4 -->
 	<?php } ?>
 	<div class="col col-fit pb-0">

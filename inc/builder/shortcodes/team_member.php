@@ -33,7 +33,6 @@ add_ux_builder_shortcode( 'team_member', array(
 
                 'name' => array( 'type' => 'textfield','heading' => 'Name', 'default' => '', 'on_change' => array( 'selector' => '.person-name', 'content' => '{{ value }}')),
                 'title' => array( 'type' => 'textfield','heading' => 'Title', 'default' => '',  'on_change' => array( 'selector' => '.person-title', 'content' => '{{ value }}')),
-                'link' => array( 'type' => 'textfield','heading' => 'Link', 'default' => ''),
                 'depth' => array(
                     'type' => 'slider',
                     'heading' => __( 'Depth' ),
@@ -70,6 +69,7 @@ add_ux_builder_shortcode( 'team_member', array(
                 'googleplus' => array( 'type' => 'textfield','heading' => 'Google+', 'default' => ''),
                 'youtube' => array( 'type' => 'textfield','heading' => 'Youtube', 'default' => ''),
                 'email' => array( 'type' => 'textfield','heading' => 'Email', 'default' => ''),
+                'phone' => array( 'type' => 'textfield','heading' => 'Phone', 'default' => ''),
                 'pinterest' => array( 'type' => 'textfield','heading' => 'Pinterest', 'default' => ''),
                 'linkedin' => array( 'type' => 'textfield','heading' => 'Linkedin', 'default' => ''),
                 'snapchat' => array( 'type' => 'image', 'heading' => __( 'SnapChat' )),

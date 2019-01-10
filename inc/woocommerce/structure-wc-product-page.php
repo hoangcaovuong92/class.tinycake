@@ -13,15 +13,15 @@ function flatsome_product_summary_fix(){
 add_action('wp_head','flatsome_product_summary_fix', 9999);
 
 // Product summary classes
-function flatsome_product_summary_classes(){
-    $classes = array('product-summary');
-    if(get_theme_mod('product_info_align')){
-       $classes[] = 'text-'.flatsome_option('product_info_align');
-    }
-    if(get_theme_mod('product_info_form')){
-      $classes[] = 'form-'.flatsome_option('product_info_form');
-    }
-    echo implode(' ', $classes);
+function flatsome_product_summary_classes( $main = true, $align = true, $form = true ) {
+	$classes = $main ? array( 'product-summary' ) : array();
+	if ( $align && get_theme_mod( 'product_info_align' ) ) {
+		$classes[] = 'text-' . get_theme_mod( 'product_info_align', 'left' );
+	}
+	if ( $form && get_theme_mod( 'product_info_form' ) ) {
+		$classes[] = 'form-' . get_theme_mod( 'product_info_form', '' );
+	}
+	echo implode( ' ', $classes );
 }
 
 function flatsome_product_upsell_sidebar(){
@@ -59,7 +59,7 @@ function flatsome_remove_product_information_heading($heading){
 add_filter('woocommerce_product_additional_information_heading','flatsome_remove_product_information_heading');
 
 
-// Add Extra Product Images to Product Slider
+// Add Extra Product Images to Product Slider ( FOR WC 2.X ONLY)
 if(!function_exists('flatsome_add_extra_product_images')) {
     function flatsome_add_extra_product_images(){
         global $post;
@@ -193,6 +193,10 @@ function flatsome_custom_product_tabs( $tabs ) {
         'callback'  => 'flatsome_global_tab_content'
       );
   }
+
+  // Move review tab to the last position
+  //$tabs['reviews']['priority'] = 100;
+
   return $tabs;
 }
 
@@ -271,3 +275,40 @@ function flatsome_related_products_args( $args ) {
   return $args;
 }
 add_filter( 'woocommerce_output_related_products_args', 'flatsome_related_products_args' );
+
+
+function flatsome_sticky_add_to_cart_before() {
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+		return;
+	}
+
+	global $product;
+	echo '<div class="sticky-add-to-cart-wrapper">';
+	echo '<div class="sticky-add-to-cart">';
+	echo '<div class="sticky-add-to-cart__product">';
+	$image_id = $product->get_image_id();
+	$image    = wp_get_attachment_image_src( $image_id, 'woocommerce_gallery_thumbnail' );
+	if ( $image ) {
+		$image = '<img src="' . $image[0] . '" class="sticky-add-to-cart-img" />';
+		echo $image;
+	}
+	echo '<div class="product-title-small hide-for-small"><strong>' . get_the_title() . '</strong></div>';
+	if ( ! $product->is_type( 'variable' ) ) {
+		woocommerce_template_single_price();
+	}
+	echo '</div>';
+}
+
+add_action( 'woocommerce_before_add_to_cart_button', 'flatsome_sticky_add_to_cart_before', -100 );
+
+
+function flatsome_sticky_add_to_cart_after() {
+	if ( ! is_product() || ! get_theme_mod( 'product_sticky_cart', 0 ) ) {
+		return;
+	}
+
+	echo '</div>';
+	echo '</div>';
+}
+
+add_action( 'woocommerce_after_add_to_cart_button', 'flatsome_sticky_add_to_cart_after', 100 );

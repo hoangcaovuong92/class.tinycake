@@ -29,9 +29,10 @@ function shortcode_latest_from_blog($atts, $content = null, $tag) {
    		'depth_hover' => '',
 
 		// posts
-		'posts' => '12',
+		'posts' => '8',
 		'ids' => false, // Custom IDs
 		'cat' => '',
+		'category' => '', // Added for Flatsome v2 fallback
 		'excerpt' => 'visible',
 		'excerpt_length' => 15,
 		'offset' => '',
@@ -93,7 +94,7 @@ function shortcode_latest_from_blog($atts, $content = null, $tag) {
 	  $current_grid = 0;
 	  $grid = flatsome_get_grid($grid);
 	  $grid_total = count($grid);
-	  echo flatsome_get_grid_height($grid_height, $_id);
+	  flatsome_get_grid_height($grid_height, $_id);
 	}
 
 	// Fix overlay
@@ -147,7 +148,7 @@ function shortcode_latest_from_blog($atts, $content = null, $tag) {
 	$repeater['slider_nav_position'] = $slider_nav_position;
 	$repeater['slider_nav_color'] = $slider_nav_color;
 	$repeater['slider_bullets'] = $slider_bullets;
-  $repeater['auto_slide'] = $auto_slide;
+    $repeater['auto_slide'] = $auto_slide;
 	$repeater['row_spacing'] = $col_spacing;
 	$repeater['row_width'] = $width;
 	$repeater['columns'] = $columns;
@@ -165,15 +166,22 @@ function shortcode_latest_from_blog($atts, $content = null, $tag) {
 		'ignore_sticky_posts' => true
 	);
 
+	// Added for Flatsome v2 fallback
+	if ( get_theme_mod('flatsome_fallback', 0) && $category ) {
+		$args['category_name'] = $category;
+	}
+
 	// If custom ids
 	if ( !empty( $ids ) ) {
 		$ids = explode( ',', $ids );
 		$ids = array_map( 'trim', $ids );
-		$posts = 9999;
-		$offset = 0;
 
 		$args = array(
 			'post__in' => $ids,
+            'post_type' => array(
+                'post',
+                'featured_item', // Include for its tag archive listing.
+            ),
 			'numberposts' => -1,
 			'orderby' => 'post__in',
 			'posts_per_page' => 9999,
@@ -183,13 +191,8 @@ function shortcode_latest_from_blog($atts, $content = null, $tag) {
 
 $recentPosts = new WP_Query( $args );
 
-// Disable slider if less than selected products pr row.
-if ( $recentPosts->post_count < ($repeater['columns']+1) ) {
-	if($repeater['type'] == 'slider') $repeater['type'] = 'row';
-}
-
-// Get Repater HTML
-echo get_flatsome_repeater_start($repeater);
+// Get repeater HTML.
+get_flatsome_repeater_start($repeater);
 
 while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 
@@ -254,8 +257,9 @@ while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 					<div class="is-divider"></div>
 					<?php if($excerpt !== 'false') { ?>
 					<p class="from_the_blog_excerpt <?php if($excerpt !== 'visible'){ echo 'show-on-hover hover-'.$excerpt; } ?>"><?php
-					  $the_excerpt = get_the_excerpt();
-					  echo flatsome_string_limit_words($the_excerpt, $excerpt_length) . '[...]';
+					  $the_excerpt  = get_the_excerpt();
+					  $excerpt_more = apply_filters( 'excerpt_more', ' [...]' );
+					  echo flatsome_string_limit_words($the_excerpt, $excerpt_length) . $excerpt_more;
 					?>
 					</p>
 					<?php } ?>
@@ -280,7 +284,7 @@ while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 					</div><!-- .box-text-inner -->
 					</div><!-- .box-text -->
 					<?php if(has_post_thumbnail() && ($show_date == 'badge' || $show_date == 'true')) {?>
-					<?php if(!$badge_style) $badge_style = flatsome_option('blog_badge_style'); ?>
+					<?php if(!$badge_style) $badge_style = get_theme_mod('blog_badge_style', 'outline'); ?>
 						<div class="badge absolute top post-date badge-<?php echo $badge_style; ?>">
 							<div class="badge-inner">
 								<span class="post-date-day"><?php echo get_the_time('d', get_the_ID()); ?></span><br>
@@ -295,8 +299,8 @@ while ( $recentPosts->have_posts() ) : $recentPosts->the_post();
 <?php endwhile;
 wp_reset_query();
 
-// Get repeater end
-echo get_flatsome_repeater_end($atts);
+// Get repeater end.
+get_flatsome_repeater_end($atts);
 
 $content = ob_get_contents();
 ob_end_clean();

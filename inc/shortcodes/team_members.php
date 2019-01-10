@@ -4,7 +4,6 @@ function flatsome_team_member($atts, $content = null){
   extract( shortcode_atts( array(
       '_id' => null,
       'img' => '',
-      'link' => '',
       'name' => '',
       'title' => '',
       'icon_style' => 'outline',
@@ -16,12 +15,14 @@ function flatsome_team_member($atts, $content = null){
       'snapchat' => '',
       'youtube' => '',
       'email' => '',
+      'phone' => '',
       'linkedin' => '',
       'style' => '',
       'depth' => '',
       'depth_hover' => '',
       'link' => '',
       'target' => '',
+      'rel' => '',
       // Box styles
       'animate' => '',
       'text_pos' => 'bottom',
@@ -49,6 +50,11 @@ function flatsome_team_member($atts, $content = null){
     $classes_image = array();
     $classes_image_inner = array();
 
+	$link_atts = array(
+		'target' => $target,
+		'rel'    => array( $rel ),
+	);
+
     // Fix old
     if($style == 'text-overlay'){
       $image_hover = 'zoom';
@@ -61,7 +67,7 @@ function flatsome_team_member($atts, $content = null){
     if($depth) $classes_box[] = 'box-shadow-'.$depth;
     if($depth_hover) $classes_box[] = 'box-shadow-'.$depth_hover.'-hover';
 
-    $link_start = '<a href="'.$link.'" target="'.$target.'">';
+    $link_start = '<a href="'.$link.'"' . flatsome_parse_target_rel( $link_atts ) . '">';
     $link_end = '</a>';
 
     if($style) $classes_box[] = 'box-'.$style;
@@ -118,7 +124,7 @@ function flatsome_team_member($atts, $content = null){
                       <?php echo $title; ?>
                     </span>
                   </h4>
-                 <?php echo do_shortcode('[follow style="'.$icon_style.'" facebook="'.$facebook.'" twitter="'.$twitter.'" googleplus="'.$googleplus.'" snapchat="'.$snapchat.'" email="'.$email.'" pinterest="'.$pinterest.'" youtube="'.$youtube.'" instagram="'.$instagram.'" linkedin="'.$linkedin.'"]'); ?>
+                 <?php echo do_shortcode('[follow style="'.$icon_style.'" facebook="'.$facebook.'" twitter="'.$twitter.'" googleplus="'.$googleplus.'" snapchat="'.$snapchat.'" email="'.$email.'" phone="'.$phone.'" pinterest="'.$pinterest.'" youtube="'.$youtube.'" instagram="'.$instagram.'" linkedin="'.$linkedin.'"]'); ?>
                  <?php if($style  !== 'overlay' && $style  !== 'shade') echo do_shortcode($content); ?>
                 </div><!-- box-text-inner -->
           </div><!-- box-text -->

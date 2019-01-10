@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<h1 class="product-title entry-title">
+<h1 class="product-title product_title entry-title">
 	<?php the_title(); ?>
 </h1>
 
-<?php if(flatsome_option('product_info_divider')) { ?>
+<?php if(get_theme_mod('product_title_divider', 1)) { ?>
 	<div class="is-divider small"></div>
 <?php } ?>

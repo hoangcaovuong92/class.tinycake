@@ -6,9 +6,9 @@ tr[data-content="attachment"]{
 .wp-core-ui .woocommerce-button{
     background-color: #bb77ae!important;
     border-color: #A36597!important;;
-    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 #A36597!important;;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 #A36597!important;;
-    text-shadow: 0 -1px 1px #A36597,1px 0 1px #A36597,0 1px 1px #A36597,-1px 0 1px #A36597!important;;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 #A36597!important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 0 #A36597!important;
+    text-shadow: 0 -1px 1px #A36597,1px 0 1px #A36597,0 1px 1px #A36597,-1px 0 1px #A36597!important;
     opacity: 1;
 }
 

@@ -9,6 +9,7 @@ function button_shortcode( $atts, $content = null ){
     'animate' => '',
     'link' => '',
     'target' => '_self',
+    'rel' => '',
     'border' => '',
     'expand' => '',
     'tooltip' => '',
@@ -70,8 +71,10 @@ function button_shortcode( $atts, $content = null ){
   }
 
   if( $target == '_blank' ) {
-    $attributes['rel'] = 'noopener noreferrer';
+    $attributes['rel'][] = 'noopener noreferrer';
   }
+
+  if ( $rel ) $attributes['rel'][] = $rel;
 
 
   if( $link ) {
@@ -115,7 +118,8 @@ function facebook_login_shortcode( $atts, $content = null ){
   ), $atts ) );
   	ob_start();
   	global $post;
-?><a href="<?php echo wp_login_url(); ?>?loginFacebook=1&redirect=<?php echo the_permalink(); ?>"  class="button <?php echo $size; ?> facebook-button" onclick="window.location = '<?php echo wp_login_url(); ?>?loginFacebook=1&redirect='+window.location.href; return false;"><?php echo get_flatsome_icon('icon-facebook'); ?><?php echo $text; ?></a><?php
+	$facebook_url = add_query_arg( array( 'loginFacebook' => 1, 'redirect' => rawurlencode( get_permalink() ) ), wp_login_url() );
+?><a href="<?php echo esc_url( $facebook_url ); ?>"  class="button <?php echo $size; ?> facebook-button" onclick="window.location = '<?php echo esc_url( $facebook_url ); ?>'+window.location.href; return false;"><?php echo get_flatsome_icon('icon-facebook'); ?><?php echo $text; ?></a><?php
 $content = ob_get_contents();
 ob_end_clean();
 return $content;

@@ -14,6 +14,8 @@
 
 <body <?php body_class(); // Body classes is added from inc/helpers-frontend.php ?>>
 
+<?php do_action( 'flatsome_after_body_open' ); ?>
+
 <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'flatsome' ); ?></a>
 
 <div id="wrapper">

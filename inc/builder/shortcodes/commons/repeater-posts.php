@@ -29,6 +29,7 @@ return array(
         'conditions' => 'ids === ""',
         'default' => '',
         'config' => array(
+            'multiple' => true,
             'placeholder' => 'Select...',
             'termSelect' => array(
                 'post_type' => $repeater_post_cat,

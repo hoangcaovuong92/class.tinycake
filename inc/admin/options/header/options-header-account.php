@@ -33,16 +33,34 @@ Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'checkbox',
 	'settings'     => 'header_account_title',
 	'label'       => __( 'Show label', 'flatsome-admin' ),
+	'description' => __( 'Display label for logged in users.', 'flatsome-admin' ),
 	'section'     => 'header_account',
 	'transport' => $transport,
 	'default'     => 1,
 ));
 
+Flatsome_Option::add_field( 'option', array(
+	'type'            => 'checkbox',
+	'settings'        => 'header_account_username',
+	'label'           => __( 'Use username as label', 'flatsome-admin' ),
+	'description'     => __( 'Display username instead of fixed label for logged in users.', 'flatsome-admin' ),
+	'section'         => 'header_account',
+	'transport'       => $transport,
+	'active_callback' => array(
+		array(
+			'setting'  => 'header_account_title',
+			'operator' => '==',
+			'value'    => true,
+		),
+	),
+	'default'         => 0,
+) );
 
 Flatsome_Option::add_field( 'option',  array(
 	'type'        => 'checkbox',
 	'settings'     => 'header_account_register',
 	'label'       => __( 'Show "Register" label', 'flatsome-admin' ),
+	'description' => __( 'Display "Register" for non logged in users.', 'flatsome-admin' ),
 	'section'     => 'header_account',
 	'transport' => $transport,
 ));
@@ -66,7 +84,7 @@ function flatsome_refresh_header_account_partials( WP_Customize_Manager $wp_cust
 	$wp_customize->selective_refresh->add_partial( 'header-account', array(
 	    'selector' => '.header-nav .account-item',
 	    'container_inclusive' => true,
-	    'settings' => array('header_account_register','account_login_style','account_icon_style','header_account_title'),
+	    'settings' => array('header_account_register','account_login_style','account_icon_style','header_account_title','header_account_username'),
 	    'render_callback' => function() {
 	        return get_template_part('template-parts/header/partials/element','account');
 	    },

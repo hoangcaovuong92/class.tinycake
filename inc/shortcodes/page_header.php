@@ -103,7 +103,7 @@ function flatsome_page_header_shortcode($atts) {
    // Breadcrumbs
    if ( $type == 'breadcrumbs' ) {
      echo '<div class="title-breadcrumbs pb-half pt-half">';
-     get_flatsome_breadcrumbs();
+     flatsome_breadcrumb( 'page-breadcrumbs' );
      echo '</div>';
    } else if ( $type == 'subnav' ) {
      get_flatsome_subnav( $nav_class );

@@ -8,7 +8,7 @@
 	 	</div>
 
 	 	<div class="flex-col">
-	 		<?php get_flatsome_breadcrumbs(); ?>
+	 		<?php flatsome_breadcrumb( 'page-breadcrumbs' ); ?>
 	 	</div>
 
 	</div><!-- flex-row -->

@@ -25,7 +25,7 @@ function flatsome_banner_grid($atts, $content = null) {
       $spacing = 'small';
     }
 
-    if($spacing) $classes[] = 'row-'.$spacing;
+    if($spacing !== 'normal') $classes[] = 'row-'.$spacing;
     if($depth) $classes[] = 'row-box-shadow-'.$depth;
     if($depth_hover) $classes[] = 'row-box-shadow-'.$depth_hover.'-hover';
     if($width == 'full-width') $classes[] = 'row-full-width';
@@ -92,15 +92,14 @@ function ux_grid_col($atts, $content = null) {
   if($span__sm) $classes[] = 'small-'.$span__sm;
   if($span) $classes[] = 'large-'.$span;
 
-  if(!$height) $classes[] = 'grid-col-1';
-  if($height) $classes[] = 'grid-col-'.$height;
+  $classes[] = $height ? 'grid-col-'.$height : 'grid-col-1';
 
   // Add Animation Class
   if($animate) { $animate = 'data-animate="'.$animate.'"'; }
 
   // Add Depth Class
   if($depth) $classes_inner[] = 'box-shadow-'.$depth;
-  if($depth_hover) $classes_inner[] = 'box-shadow-'.$depth.'-hover';
+  if($depth_hover) $classes_inner[] = 'box-shadow-'.$depth_hover.'-hover';
 
   $classes =  implode(" ", $classes);
   $classes_inner =  implode(" ", $classes_inner);
